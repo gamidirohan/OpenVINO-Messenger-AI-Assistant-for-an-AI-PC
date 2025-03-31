@@ -1,0 +1,22 @@
+{
+    "name": "openvino-messenger-ai-assistant",
+    "version": "1.0.0",
+    "description": "Desktop AI Assistant for Telegram",
+    "main": "main.js",
+    "scripts": {
+      "start:web": "npm run dev --prefix ai-assistance-frontend",
+      "start:backend": "cd backend && source backend/venv/bin/activate && uvicorn main:app --reload",
+      "start:electron": "electron .",
+      "start": "concurrently \"npm:start:web\" \"npm:start:backend\" \"npm:start:electron\"",
+      "build:web": "npm run build --prefix ai-assistance-frontend",
+      "build:electron": "electron-builder",
+      "build": "npm run build:web && npm run build:electron"
+    },
+    "keywords": ["electron", "nextjs", "fastapi"],
+    "author": "You",
+    "license": "ISC",
+    "dependencies": {
+      "electron": "^28.2.1",
+      "concurrently": "^8.2.2"
+    }
+}

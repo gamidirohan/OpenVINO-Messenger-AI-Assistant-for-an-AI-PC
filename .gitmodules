@@ -1,0 +1,3 @@
+[submodule "ai-assistance-frontend"]
+	path = ai-assistance-frontend
+	url = https://github.com/gamidirohan/OpenVINO-AI-Assistant-Frontend.git
