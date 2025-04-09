@@ -85,53 +85,13 @@ class TelegramClient:
             logging.info(f"Current time: {now}")
             logging.info(f"Requested time range: {start_time} to {end_time}")
 
-            # Create some test messages for April 8-9, 2025
-            # This is just for testing and should be removed in production
-            # Make sure to create timezone-aware datetimes to match the input
+            # Import pytz for timezone handling
             import pytz
             utc = pytz.UTC
 
-            # Create timezone-aware test dates
-            test_start = datetime(2025, 4, 8, 0, 0, 0).replace(tzinfo=utc)
-            test_end = datetime(2025, 4, 9, 23, 59, 59).replace(tzinfo=utc)
-
-            # Log the timezone information for debugging
-            logging.info(f"Test date range: {test_start} to {test_end}")
+            # Log timezone information for debugging
             logging.info(f"Input date range: {start_time} to {end_time}")
-            logging.info(f"Test date tzinfo: {test_start.tzinfo}, Input date tzinfo: {start_time.tzinfo}")
-
-            # Check if the requested time range overlaps with our test range
-            if (start_time <= test_end and end_time >= test_start):
-                logging.info("Creating test messages for April 8-9, 2025")
-
-                # Create 5 test messages within the requested range with timezone-aware datetimes
-                test_messages = [
-                    {"time": datetime(2025, 4, 8, 10, 15, 0).replace(tzinfo=utc), "text": "Hello! I'm testing the OpenVINO Messenger.", "sender": "TestUser1"},
-                    {"time": datetime(2025, 4, 8, 14, 30, 0).replace(tzinfo=utc), "text": "The embedding model works great with sentence-transformers.", "sender": "TestUser2"},
-                    {"time": datetime(2025, 4, 8, 18, 45, 0).replace(tzinfo=utc), "text": "We should optimize this with OpenVINO for better performance.", "sender": "TestUser1"},
-                    {"time": datetime(2025, 4, 9, 9, 0, 0).replace(tzinfo=utc), "text": "ChromaDB is a good choice for vector storage.", "sender": "TestUser3"},
-                    {"time": datetime(2025, 4, 9, 15, 30, 0).replace(tzinfo=utc), "text": "Let's implement a better UI for the frontend.", "sender": "TestUser2"}
-                ]
-
-                # Add test messages to all_messages and messages if they're in the requested range
-                for i, msg in enumerate(test_messages):
-                    message_time = msg["time"]
-
-                    # Create message data
-                    message_data = {
-                        "message_id": i + 1000,  # Fake message ID
-                        "sender": msg["sender"],
-                        "sender_id": i + 100,  # Fake sender ID
-                        "chat_id": chat_id or 12345,  # Use provided chat ID or a default
-                        "text": msg["text"],
-                        "timestamp": message_time,
-                    }
-
-                    all_messages.append(message_data)
-
-                    # Only include messages in the specified time range
-                    if message_time >= start_time and message_time <= end_time:
-                        messages.append(message_data)
+            logging.info(f"Input date tzinfo: {start_time.tzinfo}")
 
             # Process real updates if available
             for update in updates:
