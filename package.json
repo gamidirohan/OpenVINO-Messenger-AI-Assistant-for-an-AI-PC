@@ -5,7 +5,7 @@
     "main": "main.js",
     "scripts": {
       "start:web": "npm run dev --prefix ai-assistance-frontend",
-      "start:backend": "cd backend && source backend/venv/bin/activate && uvicorn main:app --reload",
+      "start:backend": "cd backend && .\\venv\\Scripts\\activate && uvicorn main:app --reload",
       "start:electron": "electron .",
       "start": "concurrently \"npm:start:web\" \"npm:start:backend\" \"npm:start:electron\"",
       "build:web": "npm run build --prefix ai-assistance-frontend",

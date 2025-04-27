@@ -22,7 +22,9 @@ The application follows a client-server architecture with three main components:
 
 1. **Frontend**: Next.js web application that provides the user interface
 2. **Backend**: FastAPI server that handles API requests, Telegram integration, and AI processing
-3. **Vector Database**: ChromaDB for storing and retrieving message embeddings
+3. **Electron Wrapper**: Desktop application wrapper that packages the frontend and backend together
+
+The backend also integrates with ChromaDB for vector storage and retrieval.
 
 ## Project Structure
 
@@ -30,6 +32,9 @@ The application follows a client-server architecture with three main components:
 openvino-messenger-ai-assistant/
 ├── .gitignore                        # Git ignore file
 ├── README.md                         # Project documentation
+├── main.js                           # Electron main process
+├── preload.js                        # Electron preload script
+├── package.json                      # Root package.json with scripts
 ├── run_app.bat                       # Script to run both backend and frontend
 ├── ai-assistance-frontend/           # Next.js Frontend
 │   ├── src/
@@ -69,10 +74,15 @@ openvino-messenger-ai-assistant/
 - **[Python-Telegram-Bot](https://python-telegram-bot.org/)**: Python wrapper for the Telegram Bot API
 - **[Uvicorn](https://www.uvicorn.org/)**: ASGI server for running the FastAPI application
 
+### Desktop Application
+- **[Electron](https://www.electronjs.org/)**: Framework for building cross-platform desktop applications
+- **[Concurrently](https://www.npmjs.com/package/concurrently)**: Run multiple commands concurrently
+
 ### Development Tools
 - **[Git](https://git-scm.com/)**: Version control system
 - **[Python](https://www.python.org/)**: Programming language for the backend
 - **[Node.js](https://nodejs.org/)**: JavaScript runtime for the frontend
+- **[Visual Studio Code](https://code.visualstudio.com/)**: Recommended IDE for development
 
 ## Setup and Installation
 
@@ -87,8 +97,11 @@ openvino-messenger-ai-assistant/
 For a quick start, you can use the provided batch script:
 
 ```bash
-# Run both backend and frontend
+# Run both backend and frontend as web applications
 .\run_app.bat
+
+# Or run as a desktop application with Electron
+npm start
 ```
 
 ### Step-by-Step Setup
