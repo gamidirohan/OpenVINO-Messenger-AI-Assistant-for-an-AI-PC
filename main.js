@@ -25,18 +25,38 @@ function createWindow() {
     return { action: 'deny' };
   });
 
-  if (isDev) {
-    // In development, load the Next.js development server
-    console.log('Loading development server at http://localhost:3000');
-    mainWindow.loadURL('http://localhost:3000');
+  // Always load from the Next.js development server in this version
+  console.log('Loading development server at http://localhost:3000');
 
-    // Open DevTools for debugging
-    mainWindow.webContents.openDevTools();
-  } else {
-    // In production, load the built Next.js files
-    console.log('Loading production build');
-    mainWindow.loadFile(path.join(__dirname, 'ai-assistance-frontend/out/index.html'));
-  }
+  // Try to load the Next.js development server
+  mainWindow.loadURL('http://localhost:3000').catch(err => {
+    console.error('Failed to load Next.js development server:', err);
+
+    // Show an error message in the Electron window
+    mainWindow.loadURL(`data:text/html,
+      <html>
+        <head>
+          <title>Error</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
+            h1 { color: #e53e3e; }
+            pre { background: #f8f8f8; padding: 10px; border-radius: 5px; }
+          </style>
+        </head>
+        <body>
+          <h1>Failed to connect to frontend server</h1>
+          <p>Make sure the Next.js development server is running at <strong>http://localhost:3000</strong></p>
+          <p>Run the following command in the ai-assistance-frontend directory:</p>
+          <pre>npm run dev</pre>
+          <p>Error details:</p>
+          <pre>${err.toString()}</pre>
+        </body>
+      </html>
+    `);
+  });
+
+  // Open DevTools for debugging
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);
